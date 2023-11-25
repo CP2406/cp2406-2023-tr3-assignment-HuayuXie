@@ -1,66 +1,77 @@
 #include <iostream>
 #include <stdexcept>
 #include "Database.h"
+#include <fstream>
+#include <sstream>
+#include <algorithm>
+#include <cctype>
 
 using namespace std;
 
 namespace Records {
 
-	Employee& Database::addEmployee(const string& firstName,
-		const string& lastName)
-	{
-		Employee theEmployee(firstName, lastName);
-		theEmployee.setEmployeeNumber(mNextEmployeeNumber++);
-		theEmployee.hire();
-		mEmployees.push_back(theEmployee);
+    // Function to add a new employee to the database
+    Employee& Database::addEmployee(const string& firstName,
+        const string& lastName,const std::string& middleName,const std::string& Address)
+    {
+        Employee theEmployee(firstName, lastName,middleName,Address);
+        theEmployee.setEmployeeNumber(mNextEmployeeNumber++);
+        theEmployee.hire();
+        mEmployees.push_back(theEmployee);
 
-		return mEmployees[mEmployees.size() - 1];
-	}
+        return mEmployees[mEmployees.size() - 1];
+    }
 
-	Employee& Database::getEmployee(int employeeNumber)
-	{
-		for (auto& employee : mEmployees) {
-			if (employee.getEmployeeNumber() == employeeNumber) {
-				return employee;
-			}
-		}
-		throw logic_error("No employee found.");
-	}
+    // Function to get an employee by their employee number
+    Employee& Database::getEmployee(int employeeNumber)
+    {
+        for (auto& employee : mEmployees) {
+            if (employee.getEmployeeNumber() == employeeNumber) {
+                return employee;
+            }
+        }
+        throw logic_error("No employee found.");
+    }
 
-	Employee& Database::getEmployee(const string& firstName, const string& lastName)
-	{
-		for (auto& employee : mEmployees) {
-			if (employee.getFirstName() == firstName &&
-				employee.getLastName() == lastName) {
-					return employee;
-			}
-		}
-		throw logic_error("No employee found.");
-	}
+    // Function to get an employee by their first name and last name
+    Employee& Database::getEmployee(const string& firstName, const string& lastName)
+    {
+        for (auto& employee : mEmployees) {
+            if (employee.getFirstName() == firstName &&
+                employee.getLastName() == lastName) {
+                    return employee;
+            }
+        }
+        throw logic_error("No employee found.");
+    }
 
-	void Database::displayAll() const
-	{
-		for (const auto& employee : mEmployees) {
-			employee.display();
-		}
-	}
+    // Function to display all employees in the database
+    void Database::displayAll() const
+    {
+        for (const auto& employee : mEmployees) {
+            employee.display();
+        }
+    }
 
-	void Database::displayCurrent() const
-	{
-		for (const auto& employee : mEmployees) {
-			if (employee.isHired())
-				employee.display();
-		}
-	}
+    // Function to display all currently employed employees
+    void Database::displayCurrent() const
+    {
+        for (const auto& employee : mEmployees) {
+            if (employee.isHired())
+                employee.display();
+        }
+    }
 
-	void Database::displayFormer() const
-	{
-		for (const auto& employee : mEmployees) {
-			if (!employee.isHired())
-				employee.display();
-		}
-	}
- // Function to generate a unique address
+    // Function to display all former employees
+    void Database::displayFormer() const
+    {
+        for (const auto& employee : mEmployees) {
+            if (!employee.isHired())
+                employee.display();
+        }
+    }
+
+    // Function to generate a unique address
     std::string Database::generateUniqueAddress()
     {
         static int uniqueAddressCounter = 0;
@@ -86,7 +97,8 @@ namespace Records {
             }
         }
     }
-// Function to save the database to a file
+
+    // Function to save the database to a file
     void Database::saveToFile(const std::string& fileName)
     {
         std::ifstream fileExists(fileName);
@@ -177,7 +189,7 @@ namespace Records {
         inFile.close();
     }
 
-// Function to edit an employee's information
+    // Function to edit an employee's information
     void Database::editEmployee(const std::string& firstName, const std::string& lastName)
     {
         for (Employee& emp : mEmployees) {
@@ -240,7 +252,8 @@ namespace Records {
             std::cout << "No employees found matching the search criteria." << std::endl;
         }
     }
- // Function to search employees by partial last name
+
+    // Function to search employees by partial last name
     void Database::searchEmployeesByLastName()
     {
         std::string searchText;
@@ -330,4 +343,14 @@ namespace Records {
 		}
 		return nullptr;
     }
-}
+    void Database::logDebug(const std::string& message) {
+        if (gDebugEnabled) {
+     
+            std::cout << "DEBUG: " << message << std::endl;
+
+           
+            std::ofstream logFile("debug.txt", std::ios::app);
+            logFile << "DEBUG: " << message << std::endl;
+        }
+    }
+} // namespace Records
