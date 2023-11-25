@@ -19,6 +19,11 @@ namespace Records {
 		void displayAll() const;
 		void displayCurrent() const;
 		void displayFormer() const;
+// Generate a new database with example data
+        void generateNewDatabase();
+        
+        // Generate a unique address
+        std::string generateUniqueAddress();
 
 	private:
 		std::vector<Employee> mEmployees;
