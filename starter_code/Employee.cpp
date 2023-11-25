@@ -107,6 +107,36 @@ namespace Records {
     {
         return mAddress;
     }
+ // Edit employee information based on user input
+    void Employee::editEmployee()
+    {
+        int choice;
+        std::cout << "Select what you want to edit for this employee:" << std::endl;
+        std::cout << "1) Address" << std::endl;
+        std::cout << "2) Salary" << std::endl;
+        std::cout << "3) Employment Status" << std::endl;
+        std::cout << "Enter your choice (1/2/3): ";
+        std::cin >> choice;
+
+        switch (choice) {
+        case 1:
+            std::cout << "Enter new address: ";
+            std::cin.ignore(); // Clear the newline character
+            std::getline(std::cin, mAddress); // Update the address
+            break;
+        case 2:
+            std::cout << "Enter new salary: ";
+            std::cin >> mSalary; // Update the salary
+            break;
+        case 3:
+            std::cout << "Change employment status (0 for not hired, 1 for hired): ";
+            std::cin >> mHired; // Update the employment status
+            break;
+        default:
+            std::cout << "Invalid choice. No changes were made." << std::endl;
+        }
+    }
+
 
 
 
