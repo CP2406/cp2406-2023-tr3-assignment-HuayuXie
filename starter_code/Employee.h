@@ -40,6 +40,14 @@ namespace Records {
         std::string getAddress() const;
  // Method to edit employee information
         void editEmployee();
+void setLoginId(const std::string& loginId) { mLoginId = loginId; }
+        const std::string& getLoginId() const { return mLoginId; }
+
+        void setPassword(const std::string& password) { mPassword = password; }
+        const std::string& getPassword() const { return mPassword; }
+
+        void setIsManager(bool isManager) { mIsManager = isManager; }
+        bool getIsManager() const { return mIsManager; }
 
 	private:
 		std::string mFirstName;
