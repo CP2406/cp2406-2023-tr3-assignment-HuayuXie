@@ -35,6 +35,18 @@ namespace Records {
         
         // Search employees by first name
         void searchEmployeesByName();
+ // Search employees by middle name
+        void searchEmployeesByMiddleName();
+        
+        // Search employees by last name
+        void searchEmployeesByLastName();
+        
+        // Search employees by address
+        void searchEmployeesByAddress();
+        
+        // Search employees by various criteria
+        void searchEmployees();
+
 	private:
 		std::vector<Employee> mEmployees;
 		int mNextEmployeeNumber = kFirstEmployeeNumber;
