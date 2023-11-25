@@ -65,9 +65,6 @@ namespace Records {
         void logDebug(const std::string& message);
         
     private:
-
-        bool gDebugEnabled = false;  // Global debug flag
-
         std::vector<Employee> mEmployees;
         
         int mNextEmployeeNumber = kFirstEmployeeNumber;
