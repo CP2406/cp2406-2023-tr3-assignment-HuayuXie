@@ -86,5 +86,28 @@ namespace Records {
 	{
 		return mHired;
 	}
+// Set and get middle name methods
+    void Employee::setMiddleName(const std::string& middleName)
+    {
+        mMiddleName = middleName;
+    }
+
+    std::string Employee::getMiddleName() const
+    {
+        return mMiddleName;
+    }
+
+    // Set and get address methods
+    void Employee::setAddress(const std::string& address)
+    {
+        mAddress = address;
+    }
+
+    std::string Employee::getAddress() const
+    {
+        return mAddress;
+    }
+
+
 
 }
