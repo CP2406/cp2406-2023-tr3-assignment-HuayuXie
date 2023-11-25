@@ -26,34 +26,53 @@ int main()
     user.setIsManager(false);
 
     Employee* loggedInEmployee = nullptr;
-	
 
-	bool done = false;
-	while (!done) {
-		int selection = displayMenu();
-		switch (selection) {
-		case 0:
-			done = true;
-			break;
-		case 1:
-			doHire(employeeDB);
-			break;
-		case 2:
-			doFire(employeeDB);
-			break;
-		case 3:
-			doPromote(employeeDB);
-			break;
-		case 4:
-			employeeDB.displayAll();
-			break;
-		case 5:
-			employeeDB.displayCurrent();
-			break;
-		case 6:
-			employeeDB.displayFormer();
-			break;
-		 case 7:
+    
+
+    while (true) {
+        std::string loginId, password;
+        std::cout << "Login ID: ";
+        std::cin >> loginId;
+        std::cout << "Password: ";
+        std::cin >> password;
+
+        loggedInEmployee = employeeDB.authenticate(loginId, password);
+
+        if (loggedInEmployee == nullptr) {
+            break;
+        }
+        else 
+        {
+            // Check if the user is an administrator
+            if (loggedInEmployee->getIsManager()) {
+                std::cout << "Logged in as administrator." << std::endl;
+                bool done = false;
+                // Display the menu for administrators
+                while (!done) {
+                int selection = displayMenu();
+                switch (selection) {
+                case 0:
+                    done = true;
+                    break;
+                case 1:
+                    doHire(employeeDB);
+                    break;
+                case 2:
+                    doFire(employeeDB);
+                    break;
+                case 3:
+                    doPromote(employeeDB);
+                    break;
+                case 4:
+                    employeeDB.displayAll();
+                    break;
+                case 5:
+                    employeeDB.displayCurrent();
+                    break;
+                case 6:
+                    employeeDB.displayFormer();
+                    break;
+                case 7:
                     employeeDB.generateNewDatabase();
                     break;
                 case 8:
@@ -64,7 +83,7 @@ int main()
                         employeeDB.saveToFile(fileName); // Save the database to a file
                     }
                     break;
-		 case 9:
+                case 9:
                     {
                         std::string fileName;
                         std::cout << "Enter the file name to load: ";
@@ -85,11 +104,22 @@ int main()
                 case 11:
                     employeeDB.searchEmployees(); // Search for employees
                     break;
-		default:
-			cerr << "Unknown command." << endl;
-			break;
-		}
-	}
+                default:
+                    cerr << "Unknown command." << endl;
+                    break;
+                }
+            }
+
+            } else {
+                std::cout << "Logged in as regular employee." << std::endl;
+                // Display the menu for regular employees
+                user.display();
+            }
+        }
+
+    }
+    
+	
 
 	return 0;
 }
@@ -113,7 +143,7 @@ int displayMenu()
     cout << "4) List all employees" << endl;
     cout << "5) List all current employees" << endl;
     cout << "6) List all former employees" << endl;
-	cout << "7) Generate new database" << endl;
+    cout << "7) Generate new database" << endl;
     cout << "8) save the database to a file" << endl;
     cout << "9) Load database from a file" << endl;
     cout << "10) Edit an employee" << endl;
@@ -131,13 +161,21 @@ void doHire(Database& db)
 {
     string firstName;
     string lastName;
+    string middleName;
+    string Address;
 
     cout << "First name? ";
     cin >> firstName;
     cout << "Last name? ";
     cin >> lastName;
+    cout << "MiddleName name? ";
+    cin >> middleName;
+    cout << "Address? ";
+    cin >> Address;
+
+    db.logDebug("A new employee has been hired.");
     
-    db.addEmployee(firstName, lastName);
+    db.addEmployee(firstName, lastName,middleName,Address);
 }
 
 void doFire(Database& db)
