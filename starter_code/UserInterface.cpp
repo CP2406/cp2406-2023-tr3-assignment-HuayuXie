@@ -52,6 +52,27 @@ int main()
                         employeeDB.saveToFile(fileName); // Save the database to a file
                     }
                     break;
+		 case 9:
+                    {
+                        std::string fileName;
+                        std::cout << "Enter the file name to load: ";
+                        std::cin >> fileName;
+                        employeeDB.loadFromFile(fileName); // Load database from a file
+                    }
+                    break;
+                case 10:
+                    {
+                        std::string firstName, lastName;
+                        std::cout << "Enter the first name of the employee you want to edit: ";
+                        std::cin >> firstName;
+                        std::cout << "Enter the last name of the employee you want to edit: ";
+                        std::cin >> lastName;
+                        employeeDB.editEmployee(firstName, lastName); // Edit an employee
+                    }
+                    break;
+                case 11:
+                    employeeDB.searchEmployees(); // Search for employees
+                    break;
 		default:
 			cerr << "Unknown command." << endl;
 			break;
