@@ -31,7 +31,13 @@ namespace Records {
 		int getSalary() const;
 
 		bool isHired() const;
+ // Methods to set and get the middle name
+        void setMiddleName(const std::string& middleName);
+        std::string getMiddleName() const;
 
+        // Methods to set and get the address
+        void setAddress(const std::string& address);
+        std::string getAddress() const;
 	private:
 		std::string mFirstName;
 		std::string mLastName;
