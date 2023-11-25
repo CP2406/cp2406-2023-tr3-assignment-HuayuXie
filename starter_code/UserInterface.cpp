@@ -101,6 +101,11 @@ int displayMenu()
     cout << "4) List all employees" << endl;
     cout << "5) List all current employees" << endl;
     cout << "6) List all former employees" << endl;
+	cout << "7) Generate new database" << endl;
+    cout << "8) save the database to a file" << endl;
+    cout << "9) Load database from a file" << endl;
+    cout << "10) Edit an employee" << endl;
+    cout << "11) Search for employees" << endl;
     cout << "0) Quit" << endl;
     cout << endl;
     cout << "---> ";
