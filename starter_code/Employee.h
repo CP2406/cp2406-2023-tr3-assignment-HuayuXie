@@ -52,6 +52,8 @@ void setLoginId(const std::string& loginId) { mLoginId = loginId; }
 	private:
 		std::string mFirstName;
 		std::string mLastName;
+  std::string mMiddleName;        // Middle name
+        std::string mAddress;           // Address
 		int mEmployeeNumber = -1;
 		int mSalary = kDefaultStartingSalary;
 		bool mHired = false;
