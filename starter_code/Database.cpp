@@ -240,5 +240,94 @@ namespace Records {
             std::cout << "No employees found matching the search criteria." << std::endl;
         }
     }
+ // Function to search employees by partial last name
+    void Database::searchEmployeesByLastName()
+    {
+        std::string searchText;
+        std::cout << "Enter a partial last name to search for: ";
+        std::cin.ignore(); // Clear the newline character
+        std::getline(std::cin, searchText);
 
+        bool found = false;
+
+        for (const Employee& emp : mEmployees) {
+            std::string textToSearch = emp.getLastName();
+
+            // Perform partial text matching search
+            if (textToSearch.find(searchText) != std::string::npos) {
+                emp.display(); // Display the employee information
+                found = true;
+            }
+        }
+
+        if (!found) {
+            std::cout << "No employees found matching the search criteria." << std::endl;
+        }
+    }
+
+    // Function to search employees by partial address
+    void Database::searchEmployeesByAddress()
+    {
+        std::string searchText;
+        std::cout << "Enter a partial address to search for: ";
+        std::cin.ignore(); // Clear the newline character
+        std::getline(std::cin, searchText);
+
+        bool found = false;
+
+        for (const Employee& emp : mEmployees) {
+            std::string textToSearch = emp.getAddress();
+
+            // Perform partial text matching search
+            if (textToSearch.find(searchText) != std::string::npos) {
+                emp.display(); // Display the employee information
+                found = true;
+            }
+        }
+
+        if (!found) {
+            std::cout << "No employees found matching the search criteria." << std::endl;
+        }
+    }
+
+    // Function to search employees by different criteria
+    void Database::searchEmployees()
+    {
+        int searchBy;
+        std::cout << "Select how to search employees:" << std::endl;
+        std::cout << "1) Search by first name" << std::endl;
+        std::cout << "2) Search by middle name" << std::endl;
+        std::cout << "3) Search by last name" << std::endl;
+        std::cout << "4) Search by address" << std::endl;
+        std::cout << "Enter your choice (1/2/3/4): ";
+        std::cin >> searchBy;
+
+        switch (searchBy) {
+        case 1:
+            searchEmployeesByName();
+            break;
+        case 2:
+            searchEmployeesByMiddleName();
+            break;
+        case 3:
+            searchEmployeesByLastName();
+            break;
+        case 4:
+            searchEmployeesByAddress();
+            break;
+        default:
+            std::cerr << "Invalid search option." << std::endl;
+            return;
+        }
+    }
+	
+	Employee* Database::authenticate(const std::string& loginId, const std::string& password) 
+	{
+		for (auto& employee : mEmployees) {
+			if (employee.getLoginId() == loginId && employee.getPassword() == password) {
+				return &employee;
+			}
+		}
+		return nullptr;
+    }
 }
