@@ -15,6 +15,18 @@ void doDemote(Database& db);
 int main()
 {
 	Database employeeDB;
+    Employee& admin = employeeDB.addEmployee("Admin", "User","Admin", "SHANGHAI");
+    admin.setLoginId("admin");
+    admin.setPassword("admin");
+    admin.setIsManager(true);
+
+    Employee& user = employeeDB.addEmployee("Regular", "User","Regular", "BEIJING");
+    user.setLoginId("user");
+    user.setPassword("user");
+    user.setIsManager(false);
+
+    Employee* loggedInEmployee = nullptr;
+	
 
 	bool done = false;
 	while (!done) {
