@@ -1,92 +1,106 @@
-#include <iostream>
+// Employee.cpp
 #include "Employee.h"
+#include <iostream>
 
 using namespace std;
 
 namespace Records {
+    // Constructor to initialize employee information
+    Employee::Employee(const std::string& firstName, const std::string& lastName,
+        const std::string& middleName, const std::string& Address)
+        : mFirstName(firstName)
+        , mLastName(lastName)
+        , mMiddleName(middleName)
+        , mAddress(Address)
+    {
+    }
 
-	Employee::Employee(const std::string& firstName, const std::string& lastName)
-		: mFirstName(firstName)
-		, mLastName(lastName)
-	{
-	}
+    // Promote an employee by raising their salary
+    void Employee::promote(int raiseAmount)
+    {
+        setSalary(getSalary() + raiseAmount);
+    }
 
-	void Employee::promote(int raiseAmount)
-	{
-		setSalary(getSalary() + raiseAmount);
-	}
+    // Demote an employee by reducing their salary
+    void Employee::demote(int demeritAmount)
+    {
+        setSalary(getSalary() - demeritAmount);
+    }
 
-	void Employee::demote(int demeritAmount)
-	{
-		setSalary(getSalary() - demeritAmount);
-	}
+    // Hire an employee
+    void Employee::hire()
+    {
+        mHired = true;
+    }
 
-	void Employee::hire()
-	{
-		mHired = true;
-	}
+    // Fire an employee
+    void Employee::fire()
+    {
+        mHired = false;
+    }
 
-	void Employee::fire()
-	{
-		mHired = false;
-	}
+    // Display employee information
+    void Employee::display() const
+    {
+        cout << "Employee Information: " << getLastName() << ", " << getFirstName() << ", " << getMiddleName() << ", Address: " << getAddress() << endl;
+        cout << "-------------------------" << endl;
+        cout << (isHired() ? "Current Employee" : "Former Employee") << endl;
+        cout << "Employee Number: " << getEmployeeNumber() << endl;
+        cout << "Salary: $" << getSalary() << endl;
+        cout << endl;
+    }
 
-	void Employee::display() const
-	{
-		cout << "Employee: " << getLastName() << ", " << getFirstName() << endl;
-		cout << "-------------------------" << endl;
-		cout << (isHired() ? "Current Employee" : "Former Employee") << endl;
-		cout << "Employee Number: " << getEmployeeNumber() << endl;
-		cout << "Salary: $" << getSalary() << endl;
-		cout << endl;
-	}
+    // Set and get first name methods
+    void Employee::setFirstName(const string& firstName)
+    {
+        mFirstName = firstName;
+    }
 
-	// Getters and setters
-	void Employee::setFirstName(const string& firstName)
-	{
-		mFirstName = firstName;
-	}
+    const string& Employee::getFirstName() const
+    {
+        return mFirstName;
+    }
 
-	const string& Employee::getFirstName() const
-	{
-		return mFirstName;
-	}
+    // Set and get last name methods
+    void Employee::setLastName(const string& lastName)
+    {
+        mLastName = lastName;
+    }
 
-	void Employee::setLastName(const string& lastName)
-	{
-		mLastName = lastName;
-	}
+    const string& Employee::getLastName() const
+    {
+        return mLastName;
+    }
 
-	const string& Employee::getLastName() const
-	{
-		return mLastName;
-	}
+    // Set and get employee number methods
+    void Employee::setEmployeeNumber(int employeeNumber)
+    {
+        mEmployeeNumber = employeeNumber;
+    }
 
-	void Employee::setEmployeeNumber(int employeeNumber)
-	{
-		mEmployeeNumber = employeeNumber;
-	}
+    int Employee::getEmployeeNumber() const
+    {
+        return mEmployeeNumber;
+    }
 
-	int Employee::getEmployeeNumber() const
-	{
-		return mEmployeeNumber;
-	}
+    // Set and get salary methods
+    void Employee::setSalary(int salary)
+    {
+        mSalary = salary;
+    }
 
-	void Employee::setSalary(int salary)
-	{
-		mSalary = salary;
-	}
+    int Employee::getSalary() const
+    {
+        return mSalary;
+    }
 
-	int Employee::getSalary() const
-	{
-		return mSalary;
-	}
+    // Check if the employee is hired
+    bool Employee::isHired() const
+    {
+        return mHired;
+    }
 
-	bool Employee::isHired() const
-	{
-		return mHired;
-	}
-// Set and get middle name methods
+    // Set and get middle name methods
     void Employee::setMiddleName(const std::string& middleName)
     {
         mMiddleName = middleName;
@@ -107,7 +121,8 @@ namespace Records {
     {
         return mAddress;
     }
- // Edit employee information based on user input
+
+    // Edit employee information based on user input
     void Employee::editEmployee()
     {
         int choice;
@@ -136,8 +151,5 @@ namespace Records {
             std::cout << "Invalid choice. No changes were made." << std::endl;
         }
     }
-
-
-
 
 }
