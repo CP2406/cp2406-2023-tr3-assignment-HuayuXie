@@ -41,6 +41,17 @@ int main()
 		case 6:
 			employeeDB.displayFormer();
 			break;
+		 case 7:
+                    employeeDB.generateNewDatabase();
+                    break;
+                case 8:
+                    {
+                        std::string fileName;
+                        std::cout << "Enter the file name to save: ";
+                        std::cin >> fileName;
+                        employeeDB.saveToFile(fileName); // Save the database to a file
+                    }
+                    break;
 		default:
 			cerr << "Unknown command." << endl;
 			break;
