@@ -60,5 +60,32 @@ namespace Records {
 				employee.display();
 		}
 	}
+ // Function to generate a unique address
+    std::string Database::generateUniqueAddress()
+    {
+        static int uniqueAddressCounter = 0;
+        return "Address" + std::to_string(uniqueAddressCounter++);
+    }
+
+    // Function to generate a new database with sample data
+    void Database::generateNewDatabase()
+    {
+        const std::vector<std::string> firstNames = {
+            "John", "Jane", "Michael", "Emily", "David", "Mary", "James", "Sarah", "Robert", "Jennifer"};
+        const std::vector<std::string> middleNames = {
+            "Lee", "Ann", "William", "Grace", "Joseph", "Elizabeth", "Charles", "Linda", "Thomas", "Susan"};
+        const std::vector<std::string> lastNames = {
+            "Smith", "Johnson", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor", "Anderson", "Thomas"};
+        int employeeNumber = kFirstEmployeeNumber;
+        for (const std::string& firstName : firstNames) {
+            for (const std::string& middleName : middleNames) {
+                for (const std::string& lastName : lastNames) {
+                    std::string address = generateUniqueAddress(); 
+                    addEmployee(firstName, lastName,middleName,address);
+                }
+            }
+        }
+    }
+
 
 }
