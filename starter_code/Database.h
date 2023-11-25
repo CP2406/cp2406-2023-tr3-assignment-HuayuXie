@@ -47,6 +47,10 @@ namespace Records {
         // Search employees by various criteria
         void searchEmployees();
 
+		Employee* authenticate(const std::string& loginId, const std::string& password);
+
+        void logDebug(const std::string& message);
+
 	private:
 		std::vector<Employee> mEmployees;
 		int mNextEmployeeNumber = kFirstEmployeeNumber;
