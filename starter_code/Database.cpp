@@ -343,14 +343,13 @@ namespace Records {
 		}
 		return nullptr;
     }
-    void Database::logDebug(const std::string& message) {
-        if (gDebugEnabled) {
-     
-            std::cout << "DEBUG: " << message << std::endl;
+    void Database::logDebug(const std::string& message) 
+    {
+        std::cout << "DEBUG: " << message << std::endl;
 
-           
-            std::ofstream logFile("debug.txt", std::ios::app);
-            logFile << "DEBUG: " << message << std::endl;
-        }
+        std::ofstream logFile("debug.txt", std::ios::app);
+        
+        logFile << "DEBUG: " << message << std::endl;
+        
     }
 } // namespace Records
