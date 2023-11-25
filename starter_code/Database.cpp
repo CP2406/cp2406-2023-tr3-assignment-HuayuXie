@@ -177,6 +177,68 @@ namespace Records {
         inFile.close();
     }
 
+// Function to edit an employee's information
+    void Database::editEmployee(const std::string& firstName, const std::string& lastName)
+    {
+        for (Employee& emp : mEmployees) {
+            if (emp.getFirstName() == firstName && emp.getLastName() == lastName) {
+                emp.editEmployee(); // Call the editEmployee function for the selected employee
+                std::cout << "Employee information updated." << std::endl;
+                return;
+            }
+        }
 
+        std::cerr << "Employee not found." << std::endl;
+    }
+
+    // Function to search employees by partial first name
+    void Database::searchEmployeesByName()
+    {
+        std::string searchText;
+        std::cout << "Enter a partial first name to search for: ";
+        std::cin.ignore(); // Clear the newline character
+        std::getline(std::cin, searchText);
+
+        bool found = false;
+
+        for (const Employee& emp : mEmployees) {
+            std::string textToSearch = emp.getFirstName();
+
+            // Perform partial text matching search
+            if (textToSearch.find(searchText) != std::string::npos) {
+                emp.display(); // Display the employee information
+                found = true;
+            }
+        }
+
+        if (!found) {
+            std::cout << "No employees found matching the search criteria." << std::endl;
+        }
+    }
+
+    // Function to search employees by partial middle name
+    void Database::searchEmployeesByMiddleName()
+    {
+        std::string searchText;
+        std::cout << "Enter a partial middle name to search for: ";
+        std::cin.ignore(); // Clear the newline character
+        std::getline(std::cin, searchText);
+
+        bool found = false;
+
+        for (const Employee& emp : mEmployees) {
+            std::string textToSearch = emp.getMiddleName();
+
+            // Perform partial text matching search
+            if (textToSearch.find(searchText) != std::string::npos) {
+                emp.display(); // Display the employee information
+                found = true;
+            }
+        }
+
+        if (!found) {
+            std::cout << "No employees found matching the search criteria." << std::endl;
+        }
+    }
 
 }
