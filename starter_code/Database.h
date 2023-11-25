@@ -24,7 +24,17 @@ namespace Records {
         
         // Generate a unique address
         std::string generateUniqueAddress();
-
+ // Save the database to a file
+        void saveToFile(const std::string& fileName);
+        
+        // Load the database from a file
+        void loadFromFile(const std::string& fileName);
+        
+        // Edit employee information by first name and last name
+        void editEmployee(const std::string& firstName, const std::string& lastName);
+        
+        // Search employees by first name
+        void searchEmployeesByName();
 	private:
 		std::vector<Employee> mEmployees;
 		int mNextEmployeeNumber = kFirstEmployeeNumber;
