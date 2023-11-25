@@ -86,6 +86,97 @@ namespace Records {
             }
         }
     }
+// Function to save the database to a file
+    void Database::saveToFile(const std::string& fileName)
+    {
+        std::ifstream fileExists(fileName);
+        if (fileExists) {
+            std::string overwrite;
+            std::cout << "The file already exists. Do you want to overwrite it? (yes/no): ";
+            std::cin >> overwrite;
+
+            if (overwrite != "yes") {
+                std::cout << "File not saved." << std::endl;
+                return;
+            }
+        }
+
+        std::ofstream outFile(fileName);
+
+        if (!outFile) {
+            std::cerr << "Unable to open the file: " << fileName << std::endl;
+            return;
+        }
+
+        for (const Employee& emp : mEmployees) {
+            outFile << "First Name: " << emp.getFirstName() << std::endl;
+            outFile << "Last Name: " << emp.getLastName() << std::endl;
+            outFile << "Middle Name: " << emp.getMiddleName() << std::endl; // Save middle name
+            outFile << "Address: " << emp.getAddress() << std::endl; // Save address
+            outFile << "Employee Number: " << emp.getEmployeeNumber() << std::endl;
+            outFile << "Salary: " << emp.getSalary() << std::endl;
+            outFile << "Hired: " << (emp.isHired() ? "Yes" : "No") << std::endl;
+            outFile << "----------------------" << std::endl;
+        }
+
+        std::cout << "The database has been saved to the file: " << fileName << std::endl;
+        outFile.close();
+    }
+
+    // Function to load the database from a file
+    void Database::loadFromFile(const std::string& fileName)
+    {
+        std::ifstream inFile(fileName);
+
+        if (!inFile) {
+            std::cerr << "Unable to open the file: " << fileName << std::endl;
+            return;
+        }
+
+        // Clear existing data in the database
+        mEmployees.clear();
+
+        std::string line;
+        Employee currentEmployee;
+
+        while (std::getline(inFile, line)) {
+            // Parse employee data from the file
+            std::string fieldName;
+            std::string fieldValue;
+
+            std::istringstream lineStream(line);
+            std::getline(lineStream, fieldName, ':');
+            std::getline(lineStream, fieldValue);
+
+            // Remove leading and trailing whitespace from the field value
+            fieldValue.erase(fieldValue.find_last_not_of(" \t") + 1);
+            fieldValue.erase(0, fieldValue.find_first_not_of(" \t"));
+
+            if (fieldName == "First Name") {
+                currentEmployee.setFirstName(fieldValue);
+            } else if (fieldName == "Last Name") {
+                currentEmployee.setLastName(fieldValue);
+            } else if (fieldName == "Middle Name") {
+                currentEmployee.setMiddleName(fieldValue); // Load middle name
+            } else if (fieldName == "Address") {
+                currentEmployee.setAddress(fieldValue); // Load address
+            } else if (fieldName == "Employee Number") {
+                currentEmployee.setEmployeeNumber(std::stoi(fieldValue));
+            } else if (fieldName == "Salary") {
+                currentEmployee.setSalary(std::stoi(fieldValue));
+            } else if (fieldName == "Hired") {
+                currentEmployee.hire(); // Assume "Hired" means the employee is hired
+            } else if (fieldName == "----------------------") {
+                // End of an employee record, add it to the database
+                mEmployees.push_back(currentEmployee);
+                currentEmployee = Employee(); // Clear employee data for the next record
+            }
+        }
+
+        std::cout << "The database has been loaded from the file: " << fileName << std::endl;
+        inFile.close();
+    }
+
 
 
 }
