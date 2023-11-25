@@ -38,6 +38,9 @@ namespace Records {
         // Methods to set and get the address
         void setAddress(const std::string& address);
         std::string getAddress() const;
+ // Method to edit employee information
+        void editEmployee();
+
 	private:
 		std::string mFirstName;
 		std::string mLastName;
